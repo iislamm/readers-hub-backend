@@ -35,7 +35,7 @@ def get_token_auth_header():
 
 def verify_decode_jwt(token):
     payload = jwt.decode(
-        token, current_app.config['TOKEN_SECRET'], algorithms=['HS256'])
+        token, current_app.config['TOKEN_SECRET'], algorithms=['HS256'], options={'verify_aud': False})
     if payload['id'] is None:
         raise AuthError({
             'description': 'invalid token',
