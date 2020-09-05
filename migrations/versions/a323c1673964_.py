@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 81cd6a25d81d
-Revises: e189cae5c2ec
-Create Date: 2020-08-26 16:16:24.668246
+Revision ID: a323c1673964
+Revises: 
+Create Date: 2020-08-29 08:39:53.745807
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '81cd6a25d81d'
-down_revision = 'e189cae5c2ec'
+revision = 'a323c1673964'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -36,29 +36,29 @@ def upgrade():
     sa.UniqueConstraint('isbn13')
     )
     op.create_table('user',
-    sa.Column('uid', sa.String(), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('email', sa.String(), nullable=False),
-    sa.PrimaryKeyConstraint('uid'),
+    sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
     )
     op.create_table('challenge',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
-    sa.Column('creator_uid', sa.String(), nullable=False),
+    sa.Column('creator_id', sa.Integer(), nullable=False),
     sa.Column('start_time', sa.DateTime(), nullable=False),
     sa.Column('end_time', sa.DateTime(), nullable=False),
     sa.Column('target_books_count', sa.Integer(), nullable=False),
     sa.Column('challenge_type', sa.Enum('public', 'private', name='challengetype'), nullable=False),
-    sa.ForeignKeyConstraint(['creator_uid'], ['user.uid'], ),
+    sa.ForeignKeyConstraint(['creator_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('list',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
-    sa.Column('owner', sa.String(), nullable=False),
+    sa.Column('owner_id', sa.Integer(), nullable=False),
     sa.Column('list_type', sa.Enum('toRead', 'reading', 'read', 'custom', name='listtype'), nullable=False),
-    sa.ForeignKeyConstraint(['owner'], ['user.uid'], ),
+    sa.ForeignKeyConstraint(['owner_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('list_books',
@@ -70,29 +70,29 @@ def upgrade():
     sa.UniqueConstraint('book_id')
     )
     op.create_table('reading_progress',
-    sa.Column('uid', sa.String(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('book_id', sa.Integer(), nullable=False),
     sa.Column('progress', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['book_id'], ['book.id'], ),
-    sa.ForeignKeyConstraint(['uid'], ['user.uid'], ),
-    sa.PrimaryKeyConstraint('uid', 'book_id')
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('user_id', 'book_id')
     )
     op.create_table('review',
-    sa.Column('uid', sa.String(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('book_id', sa.Integer(), nullable=False),
     sa.Column('rate', sa.Integer(), nullable=False),
     sa.Column('comment', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['book_id'], ['book.id'], ),
-    sa.ForeignKeyConstraint(['uid'], ['user.uid'], ),
-    sa.PrimaryKeyConstraint('uid', 'book_id')
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('user_id', 'book_id')
     )
     op.create_table('challenge_participants',
     sa.Column('challenge_id', sa.Integer(), nullable=False),
-    sa.Column('uid', sa.String(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('time_joined', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['challenge_id'], ['challenge.id'], ),
-    sa.ForeignKeyConstraint(['uid'], ['user.uid'], ),
-    sa.PrimaryKeyConstraint('challenge_id', 'uid')
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('challenge_id', 'user_id')
     )
     # ### end Alembic commands ###
 
