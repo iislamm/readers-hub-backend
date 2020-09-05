@@ -19,3 +19,11 @@ class List(db.Model):
     def insert(self):
         db.session.add(self)
         db.session.commit()
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'owner': self.owner_id,
+            'list_type': self.list_type.value
+        }
