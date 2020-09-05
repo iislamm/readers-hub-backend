@@ -1,5 +1,5 @@
 from flask import Blueprint, request, escape, abort, jsonify
-from ..auth.auth import validate_user_data, generate_token, requires_auth
+from ..auth.auth import validate_user_data, generate_token
 from ..models.user import User
 from ..db import db
 import bcrypt
