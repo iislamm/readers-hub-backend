@@ -2,6 +2,7 @@ from flask import Flask
 from config import Config
 from .db import init_db, db
 from flask_migrate import Migrate
+from .auth import auth_bp
 
 
 def create_app(test_config=None):
@@ -15,6 +16,8 @@ def create_app(test_config=None):
     init_db(app)
 
     Migrate(app, db)
+
+    app.register_blueprint(auth_bp.bp)
 
     @app.route('/hello')
     def hello():

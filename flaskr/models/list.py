@@ -12,7 +12,7 @@ class ListType(enum.Enum):
 class List(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
-    owner = db.Column(db.ForeignKey('user.uid'), nullable=False)
+    owner_id = db.Column(db.ForeignKey('user.id'), nullable=False)
     list_type = db.Column(db.Enum(ListType), nullable=False)
     books = db.relationship('ListBooks', backref='list')
 

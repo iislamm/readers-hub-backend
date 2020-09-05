@@ -10,7 +10,7 @@ class ChallengeType(enum.Enum):
 class Challenge(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
-    creator_uid = db.Column(db.ForeignKey('user.uid'), nullable=False)
+    creator_id = db.Column(db.ForeignKey('user.id'), nullable=False)
     start_time = db.Column(db.DateTime(), nullable=False)
     end_time = db.Column(db.DateTime(), nullable=False)
     target_books_count = db.Column(db.Integer, nullable=False)
