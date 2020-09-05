@@ -20,3 +20,20 @@ class Book(db.Model):
     def insert(self):
         db.session.add(self)
         db.session.commit()
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'authors': self.authors,
+            'goodreads_average_rating': self.goodreads_average_rating,
+            'average_rating': self.average_rating,
+            'isbn': self.isbn,
+            'isbn13': self.isbn13,
+            'language_code': self.language_code,
+            'num_pages': self.num_pages,
+            'ratings_count': self.ratings_count,
+            'goodreads_ratings_count': self.goodreads_ratings_count,
+            'goodreads_text_reviews_count': self.goodreads_text_reviews_count,
+            'reviews': self.reviews
+        }
