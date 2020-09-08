@@ -24,6 +24,6 @@ class List(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'owner': self.owner_id,
+            'owner_id': self.owner_id,
             'list_type': self.list_type.value
         }

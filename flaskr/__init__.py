@@ -6,6 +6,7 @@ from .auth import auth_bp
 from . import books_bp
 from . import lists_bp
 from . import challenges_bp
+from . import user_bp
 
 
 def create_app(test_config=None):
@@ -24,6 +25,7 @@ def create_app(test_config=None):
     app.register_blueprint(books_bp.bp)
     app.register_blueprint(lists_bp.bp)
     app.register_blueprint(challenges_bp.bp)
+    app.register_blueprint(user_bp.bp)
 
     @app.route('/hello')
     def hello():
