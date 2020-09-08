@@ -9,3 +9,6 @@ class ChallengeParticipants(db.Model):
     def insert(self):
         db.session.add(self)
         db.session.commit()
+
+    def to_dict(self):
+        return self.user.to_dict()
